@@ -43,4 +43,45 @@ def removeItem():
     print(msg)
     return redirect(url_for('root'))
 
+@app.route("/addToCart")
+def addToCart():
+    productId = int(request.args.get('productId'))
+    stockCount = int(request.args.get('stockCount'))
+    cartList.append([productId , stockCount])
+    return redirect(url_for('root'))
+
+@app.route("/cart")
+def cart():
+    products = []
+    totalPrice = 0
+    #اضافه کردن اطلاعات محصولات اضافه شده به سبد خرید بر اساس ای دی کد
+    for ware in cartList:
+        for row in stuff:
+            if ware[0]==row.idCode:
+                products.append(row) 
+                totalPrice+=row.price*cartList[1] # محاسبه قیمت کل بر اساس قیمت هر یک و تعداد سفارش داده شده
+
+    return render_template("cart.html", products_html = products , totalPrice_html = totalPrice)
+
+@app.route("/removeFromeCart")
+def removeFromeCart():
+    productId = int(request.args.get("productId"))
+    # حذف کالا از سبد خرید
+    for ware in cartList:
+        if ware[0]==productId:
+            cartList.remove(ware)
+    return redirect(url_for('cart'))
+
+@app.route("/changeCartCount")
+def changeCartCount():
+    productId = int(request.args.get("productId"))
+    stockCount = int(request.args.get('stockCount'))
+    for ware in cartList:
+        if ware[0]==productId:
+            cartList[1]=stockCount
+            
+    return redirect(url_for('cart'))
+
+
+
 app.run(debug=True)       
