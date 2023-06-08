@@ -1,59 +1,50 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="home.css">
+    <title>LEGO Shop</title>
 </head>
 <body>
-    <img src= "logo.png" width="50" height="50">
-    <div class="dropdown">
-        Hello! Welcome to Our LEGO Shop!
-    <div class="dropdown-content"></div>
-        <hr>
-    <div>What Do You Want?</div>
-    <td>
-        <a href="/add">Add Item</a>
-    </td> 
-    <td>
-        <a href="/remove">Remove Item</a>
-    </td> 
-    <td>
-        <a href="/cart">Go to Cart</a>
-    </td>  
-    <div>
-		<h2>Items</h2>
-		<table>
-			<tr id="productName">
-				{% for row in itemData %}
-				<td>
-					Non
-				</td>
-				{% endfor %}
-			</tr>
-			<tr id="productImage">
-				{% for row in imageList %}
-				<td>
-					<img src="{{row.url}}"  alt="item" height="240px" width="300px" />
-				</td>
-				{% endfor %}
-			</tr>
-			<tr id="productPrice">
-				{% for row in itemData %}
-				<td>
-					${{row[1]}}
-				</td>
-				{% endfor %}
-			</tr>
-            <tr id="addToCart">
-                {% for row in itemData %}
-                <td>
-                    <a href="/addToCart?productId={{row[0]}}">Add to Cart</a>
-                </td>  
-                {% endfor %}  
-            </tr>
-            
-		</table>
-	</div>    
+    <header>
+        <img src="logo.png" alt="LEGO Shop Logo" width="50" height="50">
+        <p class="welcome">Hello! Welcome to Our LEGO Shop!</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/add">Add Item</a></li>
+            <li><a href="/remove">Remove Item</a></li>
+            <li><a href="/cart">Go to Cart</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Items</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Add to Cart</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in itemData %}
+                    <tr>
+                        <td>{{row[0]}}</td>
+                        <td><img src="{{row[1]}}" alt="item" height="240px" width="300px" /></td>
+                        <td>${{row[2]}}</td>
+                        <td><a href="/addToCart?productId={{row[0]}}">Add to Cart</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
 </body>
 </html>
