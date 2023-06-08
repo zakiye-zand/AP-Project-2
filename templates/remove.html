@@ -1,19 +1,24 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <img src= "logo.png" width="50" height="50">
-    <div class="dropdown">
+    <title>Remove Item</title>
+    <link rel="stylesheet" type="text/css" href="remove.css">
 </head>
 <body>
-    <h2>Remove items</h2>
-    <div>
+    <header>
+        <img src="logo.png" alt="LEGO Shop Logo" width="50" height="50">
+    </header>
+
+    <main>
+        <h2>Remove Item</h2>
         <form action="/removeItem" method="POST" enctype="multipart/form-data">
-            ID: <input type="text" name="id"><br>
-            <input type="submit">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id"><br>
+            <input type="submit" value="Remove">
         </form>
-    </div>
+    </main>
 </body>
 </html>
