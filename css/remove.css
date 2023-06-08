@@ -1,0 +1,47 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+   : 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    background-image: url('tiny_grid.png');
+}
+
+/* Logo styles */
+img {
+    display: block;
+    margin: 20px auto;
+}
+
+/* Remove Item form styles */
+form {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1 solid #ccc;
+}
+
+input[type="submit"] {
+    background-color: #ff1e87;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #8b0000;
+}
