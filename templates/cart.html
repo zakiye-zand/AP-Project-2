@@ -32,6 +32,7 @@
                         <th>Image</th>
                         <th>Price</th>
                         <th>Quantity</th>
+                        <th>New Quantity</th>
                         <th>Remove</th>
                     </tr>
                 </thead>
@@ -41,6 +42,7 @@
                         <td>{{row[3]}}</td>
                         <td><img src="{{row[2]}}" alt="item" height="240px" width="300px" /></td>
                         <td>${{row[1]}}</td>
+                        <td>{{cartlist_html[loop.index0][1]}}</td>
                         <td>
                             <form action="/changeCartCount" method="GET">
                                 <input type="hidden" name="productId" value="{{row[0]}}">
@@ -60,7 +62,7 @@
             </table>
             <p>Total Price/Dollar: ${{totalPrice_html}}</p>
             <p>Total Price/Btc: {{btcPrice}}</p>
-            <button onclick="location.href='/checkout'">Checkout</button>
+            <button>Checkout</button>
             {% else %}
             <p>Your cart is empty. <a href="/">Continue shopping</a></p>
             {% endif %}
