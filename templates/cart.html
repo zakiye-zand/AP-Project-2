@@ -38,18 +38,18 @@
                 <tbody>
                     {% for row in products_html %}
                     <tr>
-                        <td>{{row[0]}}</td>
+                        <td>{{row[3]}}</td>
                         <td><img src="{{row[2]}}" alt="item" height="240px" width="300px" /></td>
                         <td>${{row[1]}}</td>
                         <td>
-                            <form action="/changeCartCount" method="get">
+                            <form action="/changeCartCount" method="GET">
                                 <input type="hidden" name="productId" value="{{row[0]}}">
                                 <input type="number" name="stockCount" value="{{row[3]}}">
                                 <input type="submit" value="Update">
                             </form>
                         </td>
                         <td>
-                            <form action="/removeFromeCart" method="get">
+                            <form action="/removeFromeCart" method="POST">
                                 <input type="hidden" name="productId" value="{{row[0]}}">
                                 <input type="submit" value="Remove">
                             </form>
