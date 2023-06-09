@@ -1,16 +1,50 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <img src= "logo.png" width="50" height="50">
-    <div class="dropdown">
+    <link rel="stylesheet" type="text/css" href="home.css">
+    <title>LEGO Shop</title>
 </head>
 <body>
-    <h2>Shopping Bag</h2>
-    
-    <div>This Is Your Shopping Bag:</div>
+    <header>
+        <img src="https://s8.uupload.ir/files/logo_fd.png" alt="LEGO Shop Logo" width="50" height="50">
+        <p class="welcome">Hello! Welcome to Our LEGO Shop!</p>
+    </header>
 
+    <nav>
+        <ul>
+            <li><a href="add.html">Add Item</a></li>
+            <li><a href="remove.html">Remove Item</a></li>
+            <li><a href="bag.html">Go to Cart</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Items</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Add to Cart</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in itemData %}
+                    <tr>
+                        <td>{{row[0]}}</td>
+                        <td><img src="{{row[2]}}" alt="item" height="240px" width="300px" /></td>
+                        <td>${{row[1]}}</td>
+                        <td><a href="/addToCart?productId={{row[0]}}">Add to Cart</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
 </body>
 </html>
