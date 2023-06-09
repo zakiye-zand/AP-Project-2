@@ -24,6 +24,7 @@
     <main>
         <section>
             <h2>Shopping Cart</h2>
+            {% if products_html %}
             <table>
                 <thead>
                     <tr>
@@ -58,6 +59,10 @@
                 </tbody>
             </table>
             <p>Total Price: ${{totalPrice_html}}</p>
+            <button onclick="location.href='/checkout'">Checkout</button>
+            {% else %}
+            <p>Your cart is empty. <a href="/">Continue shopping</a></p>
+            {% endif %}
         </section>
     </main>
 </body>
