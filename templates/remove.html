@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Remove Item</title>
-    <link rel="stylesheet" type="text/css" href="remove.css">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/remove.css') }}">
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="LEGO Shop Logo" width="50" height="50">
+        <img src="https://s8.uupload.ir/files/logo_fd.png" alt="LEGO Shop Logo" width="50" height="50">
     </header>
 
     <main>
@@ -19,7 +19,7 @@
             <input type="text" id="id" name="id"><br>
             <input type="submit" value="Remove">
         </form>
-        <a href="home.html">Home</a>
+        <a href="/home">Home</a>
     </main>
 </body>
 </html>
