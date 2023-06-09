@@ -4,46 +4,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="home.css">
-    <title>LEGO Shop</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/cart.css') }}">
+    <title>LEGO Shop - Cart</title>
 </head>
 <body>
     <header>
         <img src="https://s8.uupload.ir/files/logo_fd.png" alt="LEGO Shop Logo" width="50" height="50">
-        <p class="welcome">Hello! Welcome to Our LEGO Shop!</p>
     </header>
 
     <nav>
         <ul>
-            <li><a href="add.html">Add Item</a></li>
-            <li><a href="remove.html">Remove Item</a></li>
-            <li><a href="bag.html">Go to Cart</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/add">Add Item</a></li>
+            <li><a href="/remove">Remove Item</a></li>
+            <li><a href="/cart">Go to Cart</a></li>
         </ul>
     </nav>
 
     <main>
         <section>
-            <h2>Items</h2>
+            <h2>Shopping Cart</h2>
             <table>
                 <thead>
                     <tr>
                         <th>Product Name</th>
                         <th>Image</th>
                         <th>Price</th>
-                        <th>Add to Cart</th>
+                        <th>Quantity</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for row in itemData %}
+                    {% for row in products_html %}
                     <tr>
                         <td>{{row[0]}}</td>
                         <td><img src="{{row[2]}}" alt="item" height="240px" width="300px" /></td>
                         <td>${{row[1]}}</td>
-                        <td><a href="/addToCart?productId={{row[0]}}">Add to Cart</a></td>
+                        <td>
+                            <form action="/changeCartCount" method="get">
+                                <input type="hidden" name="productId" value="{{row[0]}}">
+                                <input type="number" name="stockCount" value="{{row[3]}}">
+                                <input type="submit" value="Update">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/removeFromeCart" method="get">
+                                <input type="hidden" name="productId" value="{{row[0]}}">
+                                <input type="submit" value="Remove">
+                            </form>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <p>Total Price: ${{totalPrice_html}}</p>
         </section>
     </main>
 </body>
