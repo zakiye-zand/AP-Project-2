@@ -1,11 +1,23 @@
-from flask import *
-from DB import *
+from flask import Flask, render_template, request, redirect, url_for
+from sqlite3 import *
+from database import Lego
+conn = connect('legolist.db')
+cur = conn.cursor()
+stuff = cur.execute("select * from Legos")
+stuff = cur.fetchall()
+print(stuff)
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
+
+cartList = []
 
 @app.route("/") 
 def root():
-    return render_template('home.html', wares_html = stuff )
+    conn = connect('legolist.db')
+    cur = conn.cursor()
+    stuff = cur.execute("select * from Legos")
+    stuff = cur.fetchall()
+    return render_template('home.html', itemData=stuff)
 
 @app.route("/add") 
 def admin():
@@ -14,39 +26,41 @@ def admin():
 @app.route("/addItem", methods=["GET", "POST"])
 def addItem():
     if request.method == "POST":
-        title = request.form['title']
+        title = request.form['name']
         price = request.form['price']
-        pieces = request.form['pieces']
-        ageRate = request.form['ageRate']
-        item = request.form['item']
-        stockCount = request.form['stockcount']
-        idCode = request.form['idcode']#باید یونیک باشه؟
+        #pieces = request.form['pieces']
+        #ageRate = request.form['ageRate']
+        #item = request.form['item']
+        #stockCount = request.form['stockcount']
+        idCode = request.form['id']#باید یونیک باشه؟
         url = request.form['url']
-        newItem = Lego(title , price , pieces , ageRate , item , stockCount , idCode , url)
-        stuff.append(newItem)
+        newItem = Lego.create(name=title, price=price, id=idCode, url=url)
+        newItem.save()
+        #stuff.append(newItem)
 
-    return redirect(url_for('root'))    
+    return redirect(url_for('root',itemData=stuff))
 
-app.route("/remove")
+@app.route("/remove")
 def remove():
-    return render_template('remove.html', wares_html= stuff)
+    return render_template('remove.html', itemData=stuff)
 
-@app.route("/removeItem")
+
+@app.route("/removeItem", methods = ["POST"])
 def removeItem():
-    idCode = request.args.get('idCode')
-    msg = "عملیات ناموفق بود"
-    for row in stuff:
-        if idCode == row.idCode:
-            stuff.remove(row)
-            msg = "محصول با موفقیت حذف شد"
-        
-    print(msg)
-    return redirect(url_for('root'))
+    if request.method == "POST":
+        idCode = int(request.form['id'])
+        deleted_record = Lego.get(Lego.id == idCode)
+        deleted_record.delete_instance()
+        for row in stuff:
+            if stuff[0] == idCode:
+                stuff.remove(row)
+
+    return redirect(url_for('root',itemData=stuff))
 
 @app.route("/addToCart")
 def addToCart():
     productId = int(request.args.get('productId'))
-    stockCount = int(request.args.get('stockCount'))
+    stockCount = 1
     cartList.append([productId , stockCount])
     return redirect(url_for('root'))
 
@@ -84,4 +98,4 @@ def changeCartCount():
 
 
 
-app.run(debug=True)       
+app.run(debug=True)
