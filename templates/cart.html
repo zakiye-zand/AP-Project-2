@@ -58,7 +58,8 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <p>Total Price: ${{totalPrice_html}}</p>
+            <p>Total Price/Dollar: ${{totalPrice_html}}</p>
+            <p>Total Price/Btc: {{btcPrice}}</p>
             <button onclick="location.href='/checkout'">Checkout</button>
             {% else %}
             <p>Your cart is empty. <a href="/">Continue shopping</a></p>
