@@ -1,11 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import *
 from sqlite3 import *
-from database import Lego
+from database import *
+import requests
 conn = connect('legolist.db')
 cur = conn.cursor()
 stuff = cur.execute("select * from Legos")
 stuff = cur.fetchall()
 print(stuff)
+
 
 app = Flask(__name__, template_folder='templates')
 
@@ -17,7 +19,13 @@ def root():
     cur = conn.cursor()
     stuff = cur.execute("select * from Legos")
     stuff = cur.fetchall()
-    return render_template('home.html', itemData=stuff)
+    response = requests.get('https://api.sezar.network/CryptoPrice?token=btc')
+    btcRate = response.json()['USD']
+    btcPrice = []
+    for row in stuff:
+        btcPrice.append(row[1]/btcRate)
+
+    return render_template('home.html', itemData=stuff , btcPrice= btcPrice)
 
 @app.route("/add") 
 def admin():
