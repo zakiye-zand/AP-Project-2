@@ -13,5 +13,5 @@ class Lego(Model):
         table_name = 'legos'
 
 db.connect()
-db.create_tables([Lego]
+db.create_tables([Lego])
 db.close()
