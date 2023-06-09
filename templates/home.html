@@ -30,6 +30,7 @@
                         <th>Product Name</th>
                         <th>Image</th>
                         <th>Price</th>
+                        <th>Btc-Price</th>
                         <th>Add to Cart</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                         <td>{{row[0]}}</td>
                         <td><img src="{{row[2]}}" alt="item" height="240px" width="300px" /></td>
                         <td>${{row[1]}}</td>
+                        <td>{{btcPrice[loop.index0]}}</td>
                         <td><a href="/addToCart?productId={{row[0]}}">Add to Cart</a></td>
                     </tr>
                     {% endfor %}
